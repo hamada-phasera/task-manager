@@ -6,6 +6,18 @@
 
 ---
 
+## スクリーンショット
+
+自然言語の指示を「部長AI → 課長AI → 社員AI → リスクAI」の多段パイプラインで分解・実行する AI Executive ダッシュボード。
+
+| ① AI Executive ダッシュボード | ② 自然言語でタスクを入力 |
+|:---:|:---:|
+| ![ダッシュボード](docs/screenshots/01-dashboard.png) | ![タスク入力](docs/screenshots/02-new-task.png) |
+| ③ AIによるタスク自動分解プレビュー | ④ 多段AIパイプライン実行中 |
+| ![タスク分解](docs/screenshots/03-decompose-preview.png) | ![パイプライン実行](docs/screenshots/04-board-filled.png) |
+
+---
+
 ## 概要
 
 タスクの入力・分類・進捗管理を行うシングルページアプリ。AIによる入力補助（`AIStatusDisplay` / `TaskInput`）と、予定を `.ics` 形式でカレンダーへエクスポートする機能を備える。
