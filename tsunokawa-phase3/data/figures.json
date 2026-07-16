@@ -1,0 +1,161 @@
+{
+  "meta": {
+    "project": "tsunokawa-phase3",
+    "role": "数値SSOT(Single Source of Truth)。サイト内に表示される全ての数値はこのファイルからJSで注入する。HTML/JS/CSSへの数値ハードコードは禁止。",
+    "approvalRule": "approval.status が \"pending\" の値には、注入先で黄色(#F5C518)の『要承認』バッジを自動表示する。",
+    "updated": "2026-07-16"
+  },
+  "company": {
+    "nameJa": "角川流通倉庫株式会社",
+    "reading": "つのかわりゅうつうそうこ",
+    "nameEn": "TSUNOKAWA LOGISTICS & WAREHOUSE Inc.",
+    "postal": "〒121-0836",
+    "address": "東京都足立区入谷6-2-9",
+    "tel": "03-5809-4677",
+    "telHref": "tel:0358094677"
+  },
+  "figures": {
+    "monthlyShipments": {
+      "label": "月間出荷件数",
+      "value": 350000,
+      "display": "35万",
+      "unit": "件/月",
+      "count": { "to": 35, "decimals": 0, "suffix": "万" },
+      "approval": { "status": "approved" }
+    },
+    "monthlyPieces": {
+      "label": "月間出荷ピース数",
+      "value": 2160000,
+      "display": "216万",
+      "unit": "ピース/月",
+      "count": { "to": 216, "decimals": 0, "suffix": "万" },
+      "approval": { "status": "approved" }
+    },
+    "dailyCapacity": {
+      "label": "出荷能力",
+      "value": 13800,
+      "display": "13,800",
+      "unit": "件/日",
+      "count": { "to": 13800, "decimals": 0 },
+      "approval": { "status": "approved" }
+    },
+    "errorRate": {
+      "label": "誤出荷率",
+      "value": 0.001,
+      "display": "0.001",
+      "unit": "%",
+      "count": { "to": 0.001, "decimals": 3 },
+      "approval": {
+        "status": "pending",
+        "conflict": "0.0012%",
+        "note": "社内資料に0.0012%との記載があり矛盾。広報承認待ち。"
+      }
+    },
+    "storedSku": {
+      "label": "保管SKU数",
+      "value": 110000,
+      "display": "11万",
+      "unit": "SKU",
+      "count": { "to": 11, "decimals": 0, "suffix": "万" },
+      "approval": {
+        "status": "pending",
+        "conflict": "10万SKU",
+        "note": "社内資料に10万SKUとの記載があり矛盾。広報承認待ち。"
+      }
+    },
+    "cartIntegrations": {
+      "label": "ECカート連携",
+      "value": 200,
+      "display": "200",
+      "displaySuffix": "+",
+      "unit": "店舗",
+      "count": { "to": 200, "decimals": 0, "suffix": "+" },
+      "approval": {
+        "status": "pending",
+        "conflict": "380店舗",
+        "note": "社内資料に380店舗との記載があり矛盾。広報承認待ち。"
+      }
+    },
+    "revenue": {
+      "label": "売上高",
+      "value": 4000000000,
+      "display": "40",
+      "unit": "億円",
+      "note": "2024年度",
+      "count": { "to": 40, "decimals": 0 },
+      "approval": {
+        "status": "pending",
+        "conflict": "45億円",
+        "note": "社内資料に45億円との記載があり矛盾。広報承認待ち。"
+      }
+    },
+    "founded": {
+      "label": "創業",
+      "value": 2007,
+      "display": "2007",
+      "unit": "年4月",
+      "count": { "to": 2007, "decimals": 0, "grouping": false, "suffix": "" },
+      "approval": { "status": "approved" }
+    },
+    "employees": {
+      "label": "従業員数",
+      "value": 400,
+      "display": "400",
+      "unit": "名",
+      "count": { "to": 400, "decimals": 0 },
+      "approval": { "status": "approved" }
+    }
+  },
+  "locations": [
+    { "no": 1, "name": "入谷本社センター", "area": "東京都足立区", "tags": ["本社", "EC出荷"], "status": "active" },
+    { "no": 2, "name": "入谷第2センター", "area": "東京都足立区", "tags": ["保管", "流通加工"], "status": "active" },
+    { "no": 3, "name": "西新井センター", "area": "東京都足立区", "tags": ["EC出荷"], "status": "active" },
+    { "no": 4, "name": "綾瀬センター", "area": "東京都足立区", "tags": ["返品・検品"], "status": "active" },
+    { "no": 5, "name": "舎人センター", "area": "東京都足立区", "tags": ["保管"], "status": "active" },
+    { "no": 6, "name": "花畑センター", "area": "東京都足立区", "tags": ["販促物流"], "status": "active" },
+    { "no": 7, "name": "川口センター", "area": "埼玉県川口市", "tags": ["EC出荷", "流通加工"], "status": "active" },
+    { "no": 8, "name": "川口第2センター", "area": "埼玉県川口市", "tags": ["保管"], "status": "active" },
+    { "no": 9, "name": "三郷センター", "area": "埼玉県三郷市", "tags": ["大型保管"], "status": "active" },
+    { "no": 10, "name": "八潮センター", "area": "埼玉県八潮市", "tags": ["イベント直送"], "status": "active" },
+    { "no": 11, "name": "草加センター", "area": "埼玉県草加市", "tags": ["販促物流"], "status": "active" },
+    {
+      "no": 12,
+      "name": "越谷レイクタウンセンター",
+      "area": "埼玉県越谷市",
+      "tags": ["大型拠点"],
+      "status": "planned",
+      "plannedLabel": "2026年8月 稼働予定"
+    }
+  ],
+  "locationsNote": "※拠点名・機能タグはモック用の仮データです(実データは取材後に差し替え)。",
+  "cases": [
+    {
+      "id": "case-01",
+      "client": "アニメIPグッズEC A社",
+      "clientBadge": "実名承認待ち",
+      "industry": "アニメIP・キャラクターグッズEC",
+      "challenge": "新作アニメの放送直後にEC注文が急増し、自社出荷では処理しきれず出荷が数日単位で滞留していた。",
+      "response": "放送スケジュールから波動を事前予測。応援要員の先行確保と出荷ラインの再編成で、ピーク日の処理能力を一時増強。",
+      "result": { "label": "放送週の出荷遵守率", "value": 99.8, "display": "99.8", "unit": "%" }
+    },
+    {
+      "id": "case-02",
+      "client": "音楽レーベル B社",
+      "clientBadge": "実名承認待ち",
+      "industry": "音楽・ライブグッズ",
+      "challenge": "全国ツアーの会場物販納品とEC先行販売の出荷が同時期に重なり、リードタイムが逼迫していた。",
+      "response": "会場直送とEC出荷のラインを分離し、ツアー日程に沿って拠点間で在庫を事前分散。波動の山を拠点側でならした。",
+      "result": { "label": "会場納品リードタイム", "value": 40, "display": "40", "unit": "%短縮" }
+    },
+    {
+      "id": "case-03",
+      "client": "出版社 C社",
+      "clientBadge": "実名承認待ち",
+      "industry": "出版・販促物",
+      "challenge": "発売キャンペーンの販促什器・POPを全国書店へ一斉出荷する必要があり、店着日が地域によってばらついていた。",
+      "response": "エリア別の出荷波動を予測して便組みと出荷順序を最適化。店着日から逆算した波動シフトを編成。",
+      "result": { "label": "指定店着日の遵守率", "value": 99.2, "display": "99.2", "unit": "%" }
+    }
+  ],
+  "casesNote": "※事例の数値はモック用の仮データです。クライアント実名は承認取得後に差し替え。"
+}

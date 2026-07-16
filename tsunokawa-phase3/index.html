@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- モック段階のため検索エンジンから除外 -->
+  <meta name="robots" content="noindex, nofollow">
+  <title>角川流通倉庫株式会社|揺れる需要に、揺れない物流。</title>
+  <meta name="description" content="エンタメEC・販促物流のフルフィルメント。東京・埼玉の物流センターから、発売日・イベントの出荷波動を吸収するB2B 3PL。">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%2307090E'/%3E%3Cpath d='M2 20 Q8 10 16 18 T30 14' stroke='%233FE0C5' stroke-width='2.4' fill='none'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&family=Zen+Kaku+Gothic+New:wght@400;500;700;900&display=swap">
+  <link rel="stylesheet" href="css/style.css">
+  <script type="module" src="js/main.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">本文へスキップ</a>
+
+  <!-- 背面固定の波動キャンバス(遅延初期化)。reduced-motion時は静止背景のみ -->
+  <canvas id="wave-canvas" aria-hidden="true"></canvas>
+  <div id="bg-static" aria-hidden="true"></div>
+  <!-- シーン遷移時のフロスト+色収差ベール -->
+  <div id="veil" aria-hidden="true"></div>
+
+  <header class="site-header">
+    <a class="brand" href="#top" aria-label="角川流通倉庫株式会社 トップへ">
+      <svg class="brand__mark" viewBox="0 0 32 32" aria-hidden="true"><path d="M2 20 Q8 10 16 18 T30 14" stroke="currentColor" stroke-width="2.4" fill="none"/></svg>
+      <span class="brand__en">TSUNOKAWA</span>
+      <span class="brand__ja" data-company="nameJa">角川流通倉庫株式会社</span>
+    </a>
+    <nav class="site-nav" aria-label="グローバルナビゲーション">
+      <ul>
+        <li><a href="#story">Story</a></li>
+        <li><a href="#numbers">Numbers</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#locations">Locations</a></li>
+        <li><a href="#cases">Cases</a></li>
+        <li><a href="#faq">FAQ</a></li>
+      </ul>
+    </nav>
+    <a class="cta cta--small" href="#contact">お問い合わせ</a>
+  </header>
+
+  <main id="main">
+
+    <!-- S1 HERO : 1画面1メッセージ + HUD計測ラベル -->
+    <section class="hero" id="top" aria-labelledby="hero-title">
+      <div class="hud" aria-hidden="true">
+        <div class="hud__item hud__item--1">
+          <span class="hud__key">STOCK_KEEPING_UNITS</span>
+          <span class="hud__val"><span data-hud="storedSku">–</span> <span class="hud__unit">SKU</span></span>
+        </div>
+        <div class="hud__item hud__item--2">
+          <span class="hud__key">ERROR_RATE</span>
+          <span class="hud__val"><span data-hud="errorRate">–</span><span class="hud__unit">%</span></span>
+        </div>
+        <div class="hud__item hud__item--3">
+          <span class="hud__key">CAPACITY / DAY</span>
+          <span class="hud__val"><span data-hud="dailyCapacity">–</span></span>
+        </div>
+        <div class="hud__item hud__item--4">
+          <span class="hud__key">PIECES / MONTH</span>
+          <span class="hud__val"><span data-hud="monthlyPieces">–</span></span>
+        </div>
+        <div class="hud__item hud__item--5">
+          <span class="hud__key">ACTIVE_NODES</span>
+          <span class="hud__val"><span data-locations-count>–</span> <span class="hud__unit">SITES / TOKYO×SAITAMA</span></span>
+        </div>
+      </div>
+      <div class="hero__inner">
+        <p class="hero__eyebrow sec-label" data-scramble>ENTERTAINMENT LOGISTICS 3PL</p>
+        <h1 class="hero__title" id="hero-title" data-scramble-once>揺れる需要に、<br>揺れない物流。</h1>
+        <p class="hero__sub">エンタメEC・販促物流のフルフィルメント|東京・埼玉<span data-locations-count>–</span>拠点</p>
+      </div>
+      <p class="hero__scrollcue" aria-hidden="true"><span class="hero__scrollcue-line"></span>SCROLL</p>
+    </section>
+
+    <!-- S2 マーキー(WCAG 2.2.2: 一時停止ボタン必須) -->
+    <section class="marquee" id="marquee" aria-label="キャッチコピー">
+      <div class="marquee__viewport">
+        <div class="marquee__track" id="marquee-track">
+          <span class="marquee__text">THE FINAL LINE OF LOGISTICS&ensp;—&ensp;</span>
+          <span class="marquee__text" aria-hidden="true">THE FINAL LINE OF LOGISTICS&ensp;—&ensp;</span>
+          <span class="marquee__text" aria-hidden="true">THE FINAL LINE OF LOGISTICS&ensp;—&ensp;</span>
+          <span class="marquee__text" aria-hidden="true">THE FINAL LINE OF LOGISTICS&ensp;—&ensp;</span>
+        </div>
+      </div>
+      <button class="marquee__toggle" id="marquee-toggle" type="button" aria-pressed="false">
+        <span class="marquee__toggle-icon" aria-hidden="true">❚❚</span>
+        <span class="marquee__toggle-label">一時停止</span>
+      </button>
+    </section>
+
+    <!-- S3 sticky 3幕ストーリー(波動: 荒波→整流→静止) -->
+    <section class="story" id="story" aria-labelledby="story-heading">
+      <h2 class="visually-hidden" id="story-heading">波動のストーリー</h2>
+      <div class="story__stage">
+        <article class="story__act" data-act="0">
+          <p class="story__kicker sec-label" data-scramble>ACT 1 / 荒波</p>
+          <h3 class="story__title">波動は、予告なく襲ってくる。</h3>
+          <p class="story__body">
+            発売日。当選発表。SNSでの再燃。エンタメの需要は、ある日突然跳ね上がります。
+            この突発的な出荷量の急騰を、私たちは<dfn class="term">「波動」</dfn>と呼んでいます
+            ——発売日やイベントを起点に、出荷量が平常時から一気に跳ね上がる需要変動のこと。
+          </p>
+          <p class="story__quote">「推しの熱量を、そのまま届ける」</p>
+        </article>
+        <article class="story__act" data-act="1">
+          <p class="story__kicker sec-label" data-scramble>ACT 2 / 整流</p>
+          <h3 class="story__title">荒波を、整流する。</h3>
+          <p class="story__body">
+            需要予測、フレキシブルな人員配置、拠点間の在庫最適化。
+            跳ねる出荷量を、揃った正弦波のように整えていく。
+            波動は、抑え込むものではなく、流れに変えるもの。
+          </p>
+        </article>
+        <article class="story__act" data-act="2">
+          <p class="story__kicker sec-label" data-scramble>ACT 3 / 静止</p>
+          <h3 class="story__title">最後に残るのは、<br>静けさ。</h3>
+          <p class="story__body">
+            どれだけ荒れた一日も、最後は静かな水面で終わらせる。
+            誤出荷率 <span class="story__num" data-fig="errorRate">–</span>。
+          </p>
+          <p class="story__quote">「変化には順応する。品質には順応しない」</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- S4 BY THE NUMBERS(カウントアップ+モノスペース) -->
+    <section class="numbers section" id="numbers" aria-labelledby="numbers-heading">
+      <p class="sec-label" data-scramble>02 — BY THE NUMBERS</p>
+      <h2 class="section__title" id="numbers-heading">熱量を、数字で証明する。</h2>
+      <div class="numbers__grid">
+        <div class="stat"><span class="stat__label">月間出荷件数</span><span class="stat__value" data-count="monthlyShipments">–</span><span class="stat__unit">件/月<span class="stat__note">= <span data-fig="monthlyPieces">–</span></span></span></div>
+        <div class="stat"><span class="stat__label">出荷能力</span><span class="stat__value" data-count="dailyCapacity">–</span><span class="stat__unit">件/日</span></div>
+        <div class="stat"><span class="stat__label">誤出荷率</span><span class="stat__value" data-count="errorRate">–</span><span class="stat__unit">%</span></div>
+        <div class="stat"><span class="stat__label">保管SKU数</span><span class="stat__value" data-count="storedSku">–</span><span class="stat__unit">SKU</span></div>
+        <div class="stat"><span class="stat__label">ECカート連携</span><span class="stat__value" data-count="cartIntegrations">–</span><span class="stat__unit">店舗</span></div>
+        <div class="stat"><span class="stat__label">売上高</span><span class="stat__value" data-count="revenue">–</span><span class="stat__unit">億円<span class="stat__note">2024年度</span></span></div>
+        <div class="stat"><span class="stat__label">創業</span><span class="stat__value" data-count="founded">–</span><span class="stat__unit">年4月</span></div>
+        <div class="stat"><span class="stat__label">従業員数</span><span class="stat__value" data-count="employees">–</span><span class="stat__unit">名</span></div>
+      </div>
+      <p class="approval-footnote" id="approval-footnote" aria-live="off"></p>
+    </section>
+
+    <!-- S5 サービス二本柱(hover禁止・タップでアコーディオン) -->
+    <section class="services section" id="services" aria-labelledby="services-heading">
+      <p class="sec-label" data-scramble>03 — SERVICES</p>
+      <h2 class="section__title" id="services-heading">二本柱で、波動を受け止める。</h2>
+      <div class="services__grid">
+        <article class="svc-card">
+          <h3 class="svc-card__name">EC・通販フルフィルメント</h3>
+          <p class="svc-card__summary">入庫から出荷、返品まで。エンタメECの物流を一括で引き受けます。</p>
+          <button class="svc-card__toggle" type="button" aria-expanded="false" aria-controls="svc-detail-1">
+            <span class="svc-card__toggle-label">詳細を見る</span>
+            <span class="svc-card__toggle-icon" aria-hidden="true">+</span>
+          </button>
+          <div class="svc-card__detail" id="svc-detail-1" hidden>
+            <ul>
+              <li>入庫・検品(良品/不良品判定)</li>
+              <li>保管(温湿度・遮光管理)</li>
+              <li>流通加工(アソート・封入・特典同梱)</li>
+              <li>出荷(当日〜翌日発送)・返品処理</li>
+              <li>ECカート連携 <span data-fig="cartIntegrations">–</span></li>
+            </ul>
+          </div>
+        </article>
+        <article class="svc-card">
+          <h3 class="svc-card__name">販促・SPツール物流</h3>
+          <p class="svc-card__summary">店頭什器からノベルティまで。キャンペーンを物流の裏側から支えます。</p>
+          <button class="svc-card__toggle" type="button" aria-expanded="false" aria-controls="svc-detail-2">
+            <span class="svc-card__toggle-label">詳細を見る</span>
+            <span class="svc-card__toggle-icon" aria-hidden="true">+</span>
+          </button>
+          <div class="svc-card__detail" id="svc-detail-2" hidden>
+            <ul>
+              <li>販促物・什器の保管と在庫管理</li>
+              <li>全国店舗・会場への一斉出荷</li>
+              <li>イベント会場への直送・時間指定納品</li>
+              <li>組み立て・キッティング</li>
+              <li>会期後の残材回収・廃棄</li>
+            </ul>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- S6 拠点グリッド(JSで figures.json から描画) -->
+    <section class="locations section" id="locations" aria-labelledby="locations-heading">
+      <p class="sec-label" data-scramble>04 — LOCATIONS</p>
+      <h2 class="section__title" id="locations-heading">東京・埼玉<span data-locations-count>–</span>拠点。波動の最前線。</h2>
+      <ol class="locations__grid" id="locations-grid"></ol>
+      <p class="section__footnote" id="locations-note"></p>
+    </section>
+
+    <!-- S7 CASE STUDY(課題→波動対応→定量成果) -->
+    <section class="cases section" id="cases" aria-labelledby="cases-heading">
+      <p class="sec-label" data-scramble>05 — CASE STUDY</p>
+      <h2 class="section__title" id="cases-heading">波動を、成果に変えた記録。</h2>
+      <div class="cases__list" id="cases-list"></div>
+      <p class="section__footnote" id="cases-note"></p>
+    </section>
+
+    <!-- S8 FAQ(CV直前配置) -->
+    <section class="faq section" id="faq" aria-labelledby="faq-heading">
+      <p class="sec-label" data-scramble>06 — FAQ</p>
+      <h2 class="section__title" id="faq-heading">よくあるご質問</h2>
+      <div class="faq__list">
+        <details class="faq__item">
+          <summary>単発のイベント出荷や小ロットでも依頼できますか?</summary>
+          <p>可能です。スポット案件から通年運用まで、波動の規模と期間に合わせて体制を設計します。</p>
+        </details>
+        <details class="faq__item">
+          <summary>発売日やイベントで出荷量が急増(波動)しても対応できますか?</summary>
+          <p>対応します。需要予測と応援体制の事前編成により、ピーク時は <span data-fig="dailyCapacity">–</span> の出荷能力と拠点間連携で波動を吸収します。</p>
+        </details>
+        <details class="faq__item">
+          <summary>利用中のECカートや受注管理システムと連携できますか?</summary>
+          <p>主要ECカート・OMSを中心に <span data-fig="cartIntegrations">–</span> の連携実績があります。個別のAPI連携もご相談ください。</p>
+        </details>
+        <details class="faq__item">
+          <summary>倉庫見学はできますか?</summary>
+          <p>事前予約制でご案内しています。このすぐ下のお問い合わせで「倉庫見学」をお選びください。</p>
+        </details>
+        <details class="faq__item">
+          <summary>問い合わせから見積もりまでの流れは?</summary>
+          <p>ヒアリングで現状の出荷データ(波形)を拝見し、体制案と概算お見積もりをご提示します。まずは現在の波動の形をお聞かせください。</p>
+        </details>
+      </div>
+    </section>
+
+    <!-- S9 CONTACT(3CTA分離+フォーム実体。アンカー自己参照リンクなし) -->
+    <section class="contact section" id="contact" aria-labelledby="contact-heading">
+      <p class="sec-label" data-scramble>07 — CONTACT</p>
+      <h2 class="section__title contact__title" id="contact-heading">まずは、波動の話から</h2>
+      <p class="contact__lead">現状の出荷の波形を見せていただければ、最適な体制をご提案します。ご用件に合わせて下記からお選びください。</p>
+
+      <div class="contact__ctas" role="group" aria-label="ご用件の選択">
+        <button class="cta-card" type="button" data-subject="お問い合わせ">
+          <span class="cta-card__en">CONTACT</span>
+          <span class="cta-card__ja">お問い合わせ</span>
+          <span class="cta-card__desc">物流体制のご相談・お見積もり</span>
+        </button>
+        <button class="cta-card" type="button" data-subject="資料ダウンロード">
+          <span class="cta-card__en">DOWNLOAD</span>
+          <span class="cta-card__ja">資料ダウンロード</span>
+          <span class="cta-card__desc">サービス資料一式(PDF)</span>
+        </button>
+        <button class="cta-card" type="button" data-subject="倉庫見学">
+          <span class="cta-card__en">TOUR</span>
+          <span class="cta-card__ja">倉庫見学を予約</span>
+          <span class="cta-card__desc">センター見学のお申し込み</span>
+        </button>
+      </div>
+
+      <form class="contact__form" id="contact-form" novalidate>
+        <div class="form-row">
+          <label for="f-company">会社名 <span class="req" aria-hidden="true">*</span></label>
+          <input id="f-company" name="company" type="text" autocomplete="organization" required>
+        </div>
+        <div class="form-row">
+          <label for="f-name">お名前 <span class="req" aria-hidden="true">*</span></label>
+          <input id="f-name" name="name" type="text" autocomplete="name" required>
+        </div>
+        <div class="form-row">
+          <label for="f-email">メールアドレス <span class="req" aria-hidden="true">*</span></label>
+          <input id="f-email" name="email" type="email" autocomplete="email" required>
+        </div>
+        <div class="form-row">
+          <label for="f-tel">電話番号</label>
+          <input id="f-tel" name="tel" type="tel" autocomplete="tel">
+        </div>
+        <div class="form-row">
+          <label for="f-subject">ご用件 <span class="req" aria-hidden="true">*</span></label>
+          <select id="f-subject" name="subject" required>
+            <option value="お問い合わせ">お問い合わせ</option>
+            <option value="資料ダウンロード">資料ダウンロード</option>
+            <option value="倉庫見学">倉庫見学</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <label for="f-message">内容</label>
+          <textarea id="f-message" name="message" rows="5" placeholder="例)10月の新譜発売にあわせてEC出荷が跳ねる見込みです。"></textarea>
+        </div>
+        <p class="form-note">※ 本サイトはデザインモックのため、送信内容はどこにも保存・送信されません。</p>
+        <button class="cta contact__submit" type="submit">送信する</button>
+        <p class="form-result" id="form-result" role="status" aria-live="polite"></p>
+      </form>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="site-footer__inner">
+      <div class="site-footer__company">
+        <p class="site-footer__name" data-company="nameJa">–</p>
+        <p class="site-footer__en" data-company="nameEn">–</p>
+        <address class="site-footer__address">
+          <span data-company="postal">–</span> <span data-company="address">–</span><br>
+          TEL <a id="footer-tel" href="#" data-company="tel">–</a>
+        </address>
+      </div>
+      <div class="site-footer__meta">
+        <p>本サイトはコーポレートサイト・リニューアル Phase 3 のデザインモックです(noindex 設定済み)。</p>
+        <p class="site-footer__copy">© 2026 TSUNOKAWA LOGISTICS &amp; WAREHOUSE Inc.</p>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
